@@ -1,13 +1,13 @@
 import { useSupabase } from "../app/context/supabaseContext";
 
-export default function Technical({ repliesId, tweetId }) {
+export default function Technical({ Id, tweetId, name }) {
   const {
     setOpenMenuId,
     openMenuId,
     setEditId,
     replies,
     setTwitte,
-    deleteReplies,
+    deleteEvery,
   } = useSupabase();
   return (
     <div className="bg-twitter-black w-[10rem] absolute top-4 -right-6 flex flex-col">
@@ -15,9 +15,9 @@ export default function Technical({ repliesId, tweetId }) {
         <span
           onClick={(e) => {
             e.stopPropagation();
-            setTwitte(replies.find((r) => r.id === repliesId)?.text || "");
-            setEditId(repliesId);
-            setOpenMenuId(openMenuId === repliesId ? null : repliesId);
+            setTwitte(replies.find((r) => r.id === Id)?.text || "");
+            setEditId(Id);
+            setOpenMenuId(openMenuId === Id ? null : Id);
           }}
           className="w-full"
         >
@@ -26,7 +26,7 @@ export default function Technical({ repliesId, tweetId }) {
       </button>
       <button
         className="bg-red-500 text-white hover:bg-red-500/85 cursor-pointer px-6 py-1 text-sm"
-        onClick={() => deleteReplies(repliesId, tweetId)}
+        onClick={() => deleteEvery(Id, tweetId, name)}
       >
         <span className="w-full">Delete Reply</span>
       </button>

@@ -339,11 +339,11 @@ export const SupabaseProvider = ({ children }: SupabaseProviderProps) => {
     if (newReplies) setReplies(newReplies);
   };
 
-  const deleteReplies = async (replyId: string, tweetId: string) => {
+  const deleteEvery = async (Id: string, tweetId: string, name) => {
     const { error: replyDeleteError } = await supabase
-      .from("replies")
+      .from(name)
       .delete()
-      .eq("id", replyId);
+      .eq("id", Id);
 
     if (replyDeleteError) {
       console.error("Error deleting reply:", replyDeleteError);
@@ -351,7 +351,7 @@ export const SupabaseProvider = ({ children }: SupabaseProviderProps) => {
     }
 
     const { data: newReplies } = await supabase
-      .from("replies")
+      .from(name)
       .select("*")
       .eq("tweet_id", tweetId);
 
@@ -448,7 +448,7 @@ export const SupabaseProvider = ({ children }: SupabaseProviderProps) => {
         openMenuId,
         setOpenMenuId,
         editReplies,
-        deleteReplies,
+        deleteEvery,
         editId,
         setEditId,
         activeTab,

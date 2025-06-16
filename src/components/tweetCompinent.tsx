@@ -3,15 +3,10 @@ import { CiBookmark } from "react-icons/ci";
 import { FaBookmark } from "react-icons/fa";
 import { HiMiniArrowPathRoundedSquare } from "react-icons/hi2";
 import { IoStatsChart } from "react-icons/io5";
-import {
-  MdFavorite,
-  MdFavoriteBorder,
-  MdIosShare,
-  MdOutlineMoreHoriz,
-} from "react-icons/md";
+import { MdFavorite, MdFavoriteBorder, MdIosShare } from "react-icons/md";
 import { useSupabase } from "../app/context/supabaseContext";
+import EditArea from "./editArea";
 import RepliesComponent from "./repliesComponent";
-import Technical from "./technical";
 
 export default function TweetCompinent({ tweet, replies }) {
   const {
@@ -21,7 +16,7 @@ export default function TweetCompinent({ tweet, replies }) {
     handleBookmark,
     openMenuId,
     setOpenMenuId,
-    editReplies,
+    ediEtvery,
     editId,
     setEditId,
     twitte,
@@ -62,8 +57,8 @@ export default function TweetCompinent({ tweet, replies }) {
             <div className="hover:bg-sky-500/10 hover:text-sky-500 p-2 cursor-pointer rounded-full w-fit h-fit">
               <img src="/grok-white.svg" alt="" className="w-4 h-4" />
             </div>
-            <div className="hover:bg-sky-500/10 hover:text-sky-500 p-2 cursor-pointer rounded-full w-fit h-fit">
-              <MdOutlineMoreHoriz />
+            <div className="hover:bg-sky-500/10 hover:text-sky-500 p-2 cursor-pointer rounded-full w-fit h-fit relative">
+              <EditArea data={tweet} tId={tweet.id} name={"tweets"} />
             </div>
           </div>
         </div>
@@ -165,7 +160,7 @@ export default function TweetCompinent({ tweet, replies }) {
                       <div className="flex gap-x-4 items-center">
                         <button
                           onClick={() => {
-                            editReplies(reply.id, twitte, tweet.id);
+                            ediEtvery(reply.id, twitte, tweet.id, "replies");
                             setEditId(null);
                             setTwitte("");
                           }}
@@ -182,20 +177,24 @@ export default function TweetCompinent({ tweet, replies }) {
                       </div>
                     </div>
                   ) : (
+                    // <>
+                    //   <p className="text-twitter-white">{reply.text}</p>
+                    //   <MdOutlineMoreHoriz
+                    //     onClick={(e) => {
+                    //       e.stopPropagation();
+                    //       setOpenMenuId(
+                    //         openMenuId === reply.id ? null : reply.id
+                    //       );
+                    //     }}
+                    //     className="text-2xl"
+                    //   />
+                    //   {openMenuId === reply.id && (
+                    //     <Technical repliesId={reply.id} tweetId={tweet.id} />
+                    //   )}
+                    // </>
                     <>
                       <p className="text-twitter-white">{reply.text}</p>
-                      <MdOutlineMoreHoriz
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setOpenMenuId(
-                            openMenuId === reply.id ? null : reply.id
-                          );
-                        }}
-                        className="text-2xl"
-                      />
-                      {openMenuId === reply.id && (
-                        <Technical repliesId={reply.id} tweetId={tweet.id} />
-                      )}
+                      <EditArea data={reply} tId={tweet.id} name={"replies"} />
                     </>
                   )}
                 </div>
