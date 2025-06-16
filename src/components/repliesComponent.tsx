@@ -18,68 +18,70 @@ export default function RepliesComponent({ tweet }) {
     setIsReplied,
   } = useSupabase();
   return (
-    <div className="bg-twitter-black p-4">
+    <div className="bg-twitter-black p-4 w-full">
       <div className="flex justify-between">
         <RxCross2
           onClick={() => setIsReplied(false)}
-          className="text-2xl hover:text-twitter-Lightgray"
+          className="text-2xl hover:text-twitter-Lightgray cursor-pointer"
         />
         <button className="hover:bg-twitter-blue hover:text-twitter-Lightgray rounded-full cursor-pointer px-4 py-0.5">
           <span className="text-sm font-bold">Drafts</span>
         </button>
       </div>
-      <div className="flex gap-x-1">
+      <div className="flex gap-x-1 mt-4">
         <div className="flex flex-col space-y-3">
           <div className="w-10 h-10 rounded-full bg-gray-800" />
           <div className="w-0.5 h-[10%] bg-gray-500" />
           <div className="w-10 h-10 rounded-full bg-gray-800" />
         </div>
-        <div>
+        <div className="flex-1">
           <div>
             <div className="flex flex-col items-start ml-2">
               <div className="flex gap-x-2">
                 <div className="flex flex-col gap-y-1">
                   <div className="flex gap-x-1 items-center">
                     <a href="" className="hover:underline font-bold">
-                      sadgfsagdfsagh
+                      {tweet.profiles.full_name}
                     </a>
 
                     <span className="text-sm flex gap-x-1 items-center text-twitter-Lightgray">
-                      @sadfashgdftahsd
+                      @{tweet.profiles.username}
                       <div className="w-1 h-1 rounded-full bg-twitter-Lightgray"></div>
                       <span className="hover:underline">
-                        {/* {new Date(tweet.created_at).toLocaleTimeString([], {
+                        {new Date(tweet.created_at).toLocaleTimeString([], {
                           hour: "2-digit",
                           minute: "2-digit",
-                        })} */}
-                        6h
+                        })}
                       </span>
                     </span>
                   </div>
-                  <p className="text-sm">wsadygawdthfasgdxhf</p>
+                  <p className="text-sm">{tweet.text}</p>
                 </div>
               </div>
             </div>
-            <div>
-              <p>Replying to @hsdfuhsdadjfghsajfgh</p>
+            <div className="mt-2">
+              <p className="text-twitter-Lightgray">
+                Replying to @{tweet.profiles.username}
+              </p>
             </div>
-            <div className="border-b border-twitter-gray">
-              <div className="flex gap-x-2 px-2 pt-4">
-                <div className="pb-2">
+            <div className="border-b border-twitter-gray mt-4">
+              <div className="flex gap-x-2 pt-4">
+                <div className="pb-2 w-full">
                   <textarea
                     onChange={(e) => setTwitte(e.target.value)}
                     value={twitte}
                     name="post"
                     id="post"
                     placeholder="What's happening?"
-                    className="text-[1.35rem] font-extralight w-full focus:outline-none"
+                    className="text-[1.35rem] font-extralight w-full focus:outline-none bg-transparent resize-none"
+                    rows={3}
                   ></textarea>
                 </div>
               </div>
               <div className="px-4">
                 <hr className="w-full text-twitter-gray" />
                 <div className="py-4 flex justify-between">
-                  <div className="flex space-x-1">
+                  <div className="flex space-x-1 flex-wrap">
                     <button className="hover:bg-sky-500/10 hover:text-sky-500 p-2 cursor-pointer rounded-full w-fit">
                       <CiImageOn className="text-twitter-blue text-xl" />
                     </button>
@@ -111,16 +113,14 @@ export default function RepliesComponent({ tweet }) {
                       <div className="flex gap-x-2 items-center">
                         <div className="relative w-6 h-6">
                           <svg className="w-6 h-6" viewBox="0 0 36 36">
-                            {/* Background Circle */}
                             <path
                               d="M18 2.0845
               a 15.9155 15.9155 0 0 1 0 31.831
               a 15.9155 15.9155 0 0 1 0 -31.831"
                               fill="none"
-                              stroke="#2F3336" // Twitter's gray border
+                              stroke="#2F3336"
                               strokeWidth="2"
                             />
-                            {/* Progress Circle (dynamic) */}
                             <path
                               d="M18 2.0845
               a 15.9155 15.9155 0 0 1 0 31.831
@@ -128,7 +128,7 @@ export default function RepliesComponent({ tweet }) {
                               fill="none"
                               stroke={`${
                                 twitte.length > 80 ? "#aa2020" : "#1D9BF0"
-                              }`} // Twitter blue
+                              }`}
                               strokeWidth="2"
                               strokeDasharray={`${
                                 (twitte.length / 80) * 100
@@ -136,7 +136,6 @@ export default function RepliesComponent({ tweet }) {
                               strokeLinecap="round"
                             />
                           </svg>
-                          {/* Character Count (if approaching limit) */}
                           {twitte.length > 80 && (
                             <span className="absolute inset-0 flex items-center justify-center text-[9px] text-red-500 font-bold">
                               {twitte.length}

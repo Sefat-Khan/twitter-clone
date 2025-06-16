@@ -78,7 +78,7 @@ export default function LeftNavBar() {
   ];
 
   return (
-    <section className="w-[370px] h-screen sticky top-0 pl-18 pr-1 flex flex-col justify-between">
+    <section className="md:flex flex-col w-[70px] xl:w-[250px] h-screen sticky top-0 pl-2 xl:pl-18 pr-1 justify-between">
       <nav className="flex flex-col gap-y-4">
         <div className="text-3xl w-fit hover:bg-gray-800 rounded-full p-3">
           <BsTwitterX className="cursor-pointer" />
@@ -89,54 +89,42 @@ export default function LeftNavBar() {
             <button
               onClick={() => setActive(item.title)}
               key={item.title}
-              className={`relative flex gap-x-4 hover:bg-[#181818] rounded-full h-12 items-center pl-2 pr-6 w-fit cursor-pointer ${
+              className={`relative flex gap-x-4 hover:bg-[#181818] rounded-full h-12 items-center pl-2 pr-6 w-fit xl:w-full cursor-pointer ${
                 active === item.title ? "font-bold" : ""
               }`}
             >
               <span className="text-3xl">
                 {active !== item.title && item.fill ? item.icons : item.fill}
               </span>
-              {item.hasNotification &&
-              active === item.title &&
-              item.title === "Profile" ? (
-                <a
-                  onClick={() => setIsProfileShow(true)}
-                  href="/{item.title}"
-                  className="text-2xl"
-                >
-                  {item.hasNotification && (
-                    <div className="w-2 h-2 rounded-full bg-sky-500 absolute top-2 left-8"></div>
-                  )}
-                  {item.title}
-                </a>
-              ) : (
-                <a href="/{item.title}" className="text-2xl">
-                  {item.hasNotification && (
-                    <div className="w-2 h-2 rounded-full bg-sky-500 absolute top-2 left-8"></div>
-                  )}
-                  {item.title}
-                </a>
-              )}
+              <span className="hidden xl:inline">
+                {item.hasNotification && (
+                  <div className="w-2 h-2 rounded-full bg-sky-500 absolute top-2 left-8"></div>
+                )}
+                {item.title}
+              </span>
             </button>
           ))}
         </div>
 
-        <Button className="px-12 py-3 cursor-pointer mr-8 text-lg rounded-full font-bold">
+        <Button className="hidden xl:flex px-12 py-3 cursor-pointer mr-8 text-lg rounded-full font-bold">
           Post
+        </Button>
+        <Button className="xl:hidden flex justify-center items-center p-3 cursor-pointer text-lg rounded-full font-bold">
+          <BsTwitterX className="text-xl" />
         </Button>
       </nav>
       {userData && (
         <div className="flex justify-between items-center px-2 py-1 rounded-full hover:bg-[#181818] w-full h-16 mb-3 cursor-pointer">
           <div className="flex justify-start gap-x-2 items-center">
             <div className="w-10 h-10 rounded-full bg-gray-700"></div>
-            <div>
+            <div className="hidden xl:block">
               <h3>{userData.full_name}</h3>
               <p className="text-sm font-medium text-gray-500">
                 {userData.username}
               </p>
             </div>
           </div>
-          <MdOutlineMoreHoriz className="text-gray-500 text-2xl hover:text-gray-300 transition duration-75" />
+          <MdOutlineMoreHoriz className="hidden xl:block text-gray-500 text-2xl hover:text-gray-300 transition duration-75" />
         </div>
       )}
     </section>

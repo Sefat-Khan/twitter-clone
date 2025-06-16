@@ -1,18 +1,24 @@
+import { FaSearch } from "react-icons/fa";
 import { Button } from "./ui/button";
 
 export default function RightSideBar() {
   return (
-    <section className="w-[490px] h-[86rem]">
+    <section className="hidden lg:block w-[290px] xl:w-[350px] h-[86rem]">
       <div className="relative">
         <div className="sticky top-0">
-          <div className="mr-[5.2rem] ml-8 h-[16rem]">
+          <div className="mr-2 xl:mr-5 ml-2 xl:ml-4 h-[16rem]">
             <div className="sticky top-0 z-10 bg-black pt-1 pb-2">
-              <input
-                type="text"
-                name="search"
-                placeholder="Search"
-                className="px-3 py-2 rounded-full border border-gray-600 w-full mt-1 mx-1 bg-black"
-              />
+              <div className="relative">
+                <input
+                  type="text"
+                  name="search"
+                  placeholder="Search"
+                  className="px-3 py-2 rounded-full border border-gray-600 w-full mt-1 mx-1 bg-black"
+                />
+                <div className="absolute left-3 top-3 text-gray-500">
+                  <FaSearch />
+                </div>
+              </div>
             </div>
 
             <div className="border border-gray-600 w-full mt-4 mx-1 rounded-xl px-4 py-2">
@@ -61,7 +67,7 @@ export default function RightSideBar() {
                   >
                     <div className="flex">
                       <div className="w-10 h-10 rounded-full bg-gray-900"></div>
-                      <div>
+                      <div className="ml-2">
                         <a href="" className="font-bold">
                           shdfbfsdkcfkesjhf{" "}
                         </a>
@@ -81,7 +87,7 @@ export default function RightSideBar() {
               </div>
             </div>
             <div className="mt-4 mb-16">
-              <div className="flex justify-around">
+              <div className="flex flex-wrap justify-around gap-2">
                 <a
                   href=""
                   className="text-sm text-gray-600 font-light decoration-gray-600 hover:underline"

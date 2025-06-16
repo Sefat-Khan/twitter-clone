@@ -28,7 +28,7 @@ export default function TweetCompinent({ tweet, replies }) {
       <div className="p-2">
         <div className="w-10 h-10 rounded-full bg-gray-800" />
       </div>
-      <div>
+      <div className="flex-1">
         <div className="flex justify-between mb-2">
           <div className="flex flex-col items-center">
             <div className="flex gap-x-2">
@@ -62,14 +62,16 @@ export default function TweetCompinent({ tweet, replies }) {
             </div>
           </div>
         </div>
-        <div className="mr-2 w-[518px] border border-twitter-gray rounded-xl">
-          <img src="/X-white.png" alt="" />
-        </div>
+        {tweet.image_url && (
+          <div className="mr-2 w-full max-w-[518px] border border-twitter-gray rounded-xl overflow-hidden">
+            <img src={tweet.image_url} alt="Tweet media" className="w-full" />
+          </div>
+        )}
         <div className="flex gap-x-1 mt-2 items-center">
           <span className="text-[0.75rem] text-twitter-Lightgray">From</span>
           <h4 className="text-[0.8rem] font-bold">gsdfgdfgvsdghfv</h4>
         </div>
-        <div className="flex justify-between mt-2">
+        <div className="flex justify-between mt-2 max-w-[90%]">
           <div
             onClick={() => setIsReplied(!isReplied)}
             className="group flex items-center space-x-1 hover:text-sky-500 cursor-pointer"
@@ -125,14 +127,11 @@ export default function TweetCompinent({ tweet, replies }) {
         <div
           className={`bg-twitter-black/50 fixed w-full h-full top-0 bottom-0 left-0 right-0 ${
             isReplied === true ? "flex" : "hidden"
-          } justify-center items-center`}
+          } justify-center items-center z-50`}
         >
-          <div
-            onClick={() => setOpenMenuId(null)}
-            className="flex flex-col p-4 space-y-4 bg-twitter-black h-[90%]"
-          >
+          <div className="flex flex-col p-4 space-y-4 bg-twitter-black h-[90%] w-full max-w-[600px]">
             <RepliesComponent tweet={tweet} />
-            <div className="p-4 overflow-scroll">
+            <div className="p-4 overflow-y-auto">
               {replies.map((reply) => (
                 <div key={reply.id} className="relative flex space-x-2 p-3">
                   <div className="flex w-full">
@@ -177,21 +176,6 @@ export default function TweetCompinent({ tweet, replies }) {
                       </div>
                     </div>
                   ) : (
-                    // <>
-                    //   <p className="text-twitter-white">{reply.text}</p>
-                    //   <MdOutlineMoreHoriz
-                    //     onClick={(e) => {
-                    //       e.stopPropagation();
-                    //       setOpenMenuId(
-                    //         openMenuId === reply.id ? null : reply.id
-                    //       );
-                    //     }}
-                    //     className="text-2xl"
-                    //   />
-                    //   {openMenuId === reply.id && (
-                    //     <Technical repliesId={reply.id} tweetId={tweet.id} />
-                    //   )}
-                    // </>
                     <>
                       <p className="text-twitter-white">{reply.text}</p>
                       <EditArea data={reply} tId={tweet.id} name={"replies"} />

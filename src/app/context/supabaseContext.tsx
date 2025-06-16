@@ -340,22 +340,22 @@ export const SupabaseProvider = ({ children }: SupabaseProviderProps) => {
   };
 
   const deleteEvery = async (Id: string, tweetId: string, name) => {
-    const { error: replyDeleteError } = await supabase
+    const { error: DeleteError } = await supabase
       .from(name)
       .delete()
       .eq("id", Id);
 
-    if (replyDeleteError) {
-      console.error("Error deleting reply:", replyDeleteError);
+    if (DeleteError) {
+      console.error("Error deleting :", DeleteError);
       return;
     }
 
-    const { data: newReplies } = await supabase
+    const { data: newData } = await supabase
       .from(name)
       .select("*")
       .eq("tweet_id", tweetId);
 
-    if (newReplies) setReplies(newReplies);
+    if (newData) setReplies(newData);
   };
 
   const handleReplyTweet = async (tweetId: string) => {
